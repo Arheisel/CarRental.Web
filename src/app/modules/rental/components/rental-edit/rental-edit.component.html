@@ -1,0 +1,57 @@
+<div class="container">
+  <h2>Modify Reservation</h2>
+
+  <form [formGroup]="form" (submit)="submit()">
+
+    <!-- <mat-form-field>
+      <mat-label>Rental Start Date</mat-label>
+      <input matInput [matDatepicker]="startDate" formControlName="startDate">
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="startDate"></mat-datepicker-toggle>
+      <mat-datepicker #startDate></mat-datepicker>
+      <mat-error>You must provide a start date</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Rental End Date</mat-label>
+      <input matInput [matDatepicker]="endDate" formControlName="endDate">
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="endDate"></mat-datepicker-toggle>
+      <mat-datepicker #endDate></mat-datepicker>
+      <mat-error>You must provide an end date</mat-error>
+    </mat-form-field> -->
+
+    <mat-form-field class="wide">
+      <mat-label>Reservation date range</mat-label>
+      <mat-date-range-input [rangePicker]="picker">
+        <input matStartDate placeholder="Start date" formControlName="startDate">
+        <input matEndDate placeholder="End date" formControlName="endDate">
+      </mat-date-range-input>
+      <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-date-range-picker #picker></mat-date-range-picker>
+      <mat-error>You must provide a date range</mat-error>
+    </mat-form-field>
+
+
+    <mat-form-field class="wide">
+      <mat-label>Car Type</mat-label>
+      <mat-select formControlName="type">
+        <mat-option *ngFor="let type of types()" [value]="type">{{type}}</mat-option>
+      </mat-select>
+      <mat-error>You must select a car type</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="wide">
+      <mat-label>Model</mat-label>
+      <mat-select formControlName="carId">
+        <mat-option *ngFor="let car of availableCars()" [value]="car.id">{{ car.model }}</mat-option>
+      </mat-select>
+      <mat-error>You must select a car</mat-error>
+    </mat-form-field>
+
+    <button mat-raised-button color="warn" type="button" (click)="close()">Cancel</button>
+    &nbsp;
+    <button mat-raised-button color="accent" type="submit" [disabled]="form.invalid">Update Reservation</button>
+  </form>
+</div>

@@ -6,7 +6,7 @@
     <span>From: {{ data.startDate | date: 'fullDate' }}</span><br>
     <span>To: {{ data.endDate | date: 'fullDate' }}</span>
   </div>
-
+  <br>
   <form [formGroup]="form" (submit)="submit()">
 
     <mat-form-field class="wide">
@@ -27,6 +27,8 @@
       <mat-error>You must provide an ID</mat-error>
     </mat-form-field>
 
+    <button mat-raised-button color="warn" type="button" (click)="close()">Cancel</button>
+    &nbsp;
     <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">Confirm Reservation</button>
   </form>
 </div>

@@ -3,28 +3,21 @@
   <mat-form-field>
     <mat-label>Car Type</mat-label>
     <mat-select formControlName="type">
-      <mat-option *ngFor="let type of types" [value]="type">{{type}}</mat-option>
+      <mat-option *ngFor="let type of types()" [value]="type">{{type}}</mat-option>
     </mat-select>
     <mat-error>You must select a car type</mat-error>
   </mat-form-field>
 
-
   <mat-form-field>
-    <mat-label>Rental Start Date</mat-label>
-    <input matInput [matDatepicker]="startDate" formControlName="startDate">
-    <mat-hint>MM/DD/YYYY</mat-hint>
-    <mat-datepicker-toggle matIconSuffix [for]="startDate"></mat-datepicker-toggle>
-    <mat-datepicker #startDate></mat-datepicker>
-    <mat-error>You must provide a start date</mat-error>
-  </mat-form-field>
-
-  <mat-form-field>
-    <mat-label>Rental End Date</mat-label>
-    <input matInput [matDatepicker]="endDate" formControlName="endDate">
-    <mat-hint>MM/DD/YYYY</mat-hint>
-    <mat-datepicker-toggle matIconSuffix [for]="endDate"></mat-datepicker-toggle>
-    <mat-datepicker #endDate></mat-datepicker>
-    <mat-error>You must provide an end date</mat-error>
+    <mat-label>Reservation date range</mat-label>
+    <mat-date-range-input [rangePicker]="picker">
+      <input matStartDate placeholder="Start date" formControlName="startDate">
+      <input matEndDate placeholder="End date" formControlName="endDate">
+    </mat-date-range-input>
+    <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-date-range-picker #picker></mat-date-range-picker>
+    <mat-error>You must provide a date range</mat-error>
   </mat-form-field>
 
   <button mat-raised-button color="accent" type="submit" [disabled]="searchForm.invalid">Search</button>
@@ -32,7 +25,7 @@
 </form>
 
 <div class="results">
-  <mat-card class="car" *ngFor="let car of results | async">
+  <mat-card class="car" *ngFor="let car of results()">
     <mat-card-title>{{ car.model }}</mat-card-title>
     <button mat-stroked-button color="primary" (click)="addRental(car)">Book Now!</button>
   </mat-card>

@@ -1,13 +1,15 @@
 <h2>My Reservations</h2>
 
-<mat-card *ngFor="let rental of rentals | async">
+<mat-card *ngFor="let rental of rentals()">
   <mat-card-title>{{ rental.car.model }}</mat-card-title>
   <mat-card-content>
     <span>From: {{ rental.startDate | dateOnly }}</span><br>
     <span>To: {{ rental.endDate | dateOnly }}</span><br>
     <span>Status: {{ rental.status }}</span>
   </mat-card-content>
-  <mat-card-footer>
-    
+  <mat-card-footer *ngIf="rental.status == 'Valid'">
+    <button mat-raised-button color="primary" type="button" (click)="editRental(rental)">Modify</button>
+    &nbsp;
+    <button mat-raised-button color="warn" type="button" (click)="cancelRental(rental)">Cancel</button>
   </mat-card-footer>
 </mat-card>

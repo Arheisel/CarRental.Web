@@ -1,0 +1,25 @@
+:host {
+  display: block;
+}
+
+.type {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+
+.pct-cont {
+  display: inline-block;
+  width: 200px;
+  height: 10px;
+  border-radius: 5px;
+  background-color: lightgrey;
+  overflow: hidden;
+}
+
+.pct-bar {
+  height: 100%;
+  background-color: #3ba0e4;
+}

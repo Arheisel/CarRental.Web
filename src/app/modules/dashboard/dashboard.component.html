@@ -1,0 +1,9 @@
+<h2>Cars with services in the next 14 days</h2>
+
+<mat-card *ngFor="let service of services()">
+  <mat-card-title>{{ service.car.model }}</mat-card-title>
+  <mat-card-content>
+    <span>Type: {{ service.car.type }}</span><br>
+    <span>Next service date: {{ service.date | dateOnly }}</span>
+  </mat-card-content>
+</mat-card>

@@ -1,0 +1,27 @@
+<div class="container">
+  <form [formGroup]="dateForm" (submit)="showStatistics()">
+    <mat-form-field>
+      <mat-label>Date range</mat-label>
+      <mat-date-range-input [rangePicker]="picker">
+        <input matStartDate placeholder="Start date" formControlName="startDate">
+        <input matEndDate placeholder="End date" formControlName="endDate">
+      </mat-date-range-input>
+      <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-date-range-picker #picker></mat-date-range-picker>
+      <mat-error>You must provide a date range</mat-error>
+    </mat-form-field>
+    &nbsp;
+    <button mat-raised-button color="accent" type="submit">Show</button>
+  </form>
+
+  <div class="report" *ngIf="types().length > 0">
+    <div class="type" *ngFor="let type of types()">
+      <span>{{ type.type }}</span>
+      <div>
+        <span>{{ type.percentage }}%</span>&nbsp;
+        <div class="pct-cont"><div class="pct-bar" [style.width]="type.percentage + '%'"></div></div>
+      </div>
+    </div>
+  </div>
+</div>

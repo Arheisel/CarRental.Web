@@ -1,16 +1,17 @@
-import { Component, Inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 import { AddRentalData } from '../../models/addRentalData';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RentalsService } from 'src/app/API/services/rentals.service';
 import { AddRentalDto } from 'src/app/API/models/addRentalDto';
 import Popup from 'src/app/core/utils/popup';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
+import { CustomerCacheService } from '../../../../core/services/customerCache.service';
 
 @Component({
-  selector: 'app-rental-add',
   templateUrl: './rental-add.component.html',
-  styleUrls: ['./rental-add.component.scss']
+  styleUrls: ['./rental-add.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RentalAddComponent {
 
@@ -21,8 +22,11 @@ export class RentalAddComponent {
     private dialogRef: MatDialogRef<RentalAddComponent>,
     fb: FormBuilder,
     private rentalsService: RentalsService,
-    private router: Router
+    private router: Router,
+    private customerCacheService: CustomerCacheService
   ) {
+    if (!data) console.error('Data is null!');
+
     this.form = fb.group({
       id: [null, Validators.required],
       name: [null, Validators.required],
@@ -46,9 +50,14 @@ export class RentalAddComponent {
     this.rentalsService.registerRental(dto).subscribe(() => {
       Popup.success("Reservation addded").then(() => {
         this.dialogRef.close();
-        this.router.navigateByUrl('/rentals/list', { state: { customerId: value.id } })
+        this.customerCacheService.customerId = value.id;
+        this.router.navigateByUrl('/rentals/list');
       });
     });
+  }
+
+  close() {
+    this.dialogRef.close();
   }
 
 }

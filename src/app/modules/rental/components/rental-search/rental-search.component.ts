@@ -1,22 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, signal } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { Subject } from 'rxjs';
 import { CarDto } from 'src/app/API/models/carDto';
 import { CarsService } from 'src/app/API/services/cars.service';
 import { AddRentalData } from '../../models/addRentalData';
 import { RentalAddComponent } from '../rental-add/rental-add.component';
 
 @Component({
-  selector: 'app-rental-search',
   templateUrl: './rental-search.component.html',
-  styleUrls: ['./rental-search.component.scss']
+  styleUrls: ['./rental-search.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RentalSearchComponent implements OnInit {
 
   public searchForm: FormGroup;
-  public types: string[] = [];
-  public results = new Subject<CarDto[]>();
+  public types = signal<string[]>([]);
+  public results = signal<CarDto[]>([]);
 
   constructor(private carsService: CarsService, fb: FormBuilder, private dialog: MatDialog) {
     this.searchForm = fb.group({
@@ -27,14 +26,14 @@ export class RentalSearchComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.carsService.getTypes().subscribe(types => this.types = types);
+    this.carsService.getTypes().subscribe(types => this.types.set(types));
   }
 
   search() {
     if (this.searchForm.invalid) return;
 
     const value = this.searchForm.value;
-    this.carsService.search(value.type, value.startDate, value.endDate).subscribe(res => this.results.next(res));
+    this.carsService.search(value.type, value.startDate, value.endDate).subscribe(cars => this.results.set(cars));
   }
 
   addRental(car: CarDto) {
