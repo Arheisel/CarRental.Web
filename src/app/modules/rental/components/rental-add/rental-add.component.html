@@ -1,0 +1,32 @@
+<div class="container">
+  <h2>New Rental</h2>
+
+  <div>
+    <span>Car: {{ data.car.model }}</span><br>
+    <span>From: {{ data.startDate | date: 'fullDate' }}</span><br>
+    <span>To: {{ data.endDate | date: 'fullDate' }}</span>
+  </div>
+
+  <form [formGroup]="form" (submit)="submit()">
+
+    <mat-form-field class="wide">
+      <mat-label>ID Number</mat-label>
+      <input matInput formControlName="id">
+      <mat-error>You must provide an ID</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="wide">
+      <mat-label>Full Name</mat-label>
+      <input matInput formControlName="name">
+      <mat-error>You must provide an ID</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="wide">
+      <mat-label>Address</mat-label>
+      <input matInput formControlName="address">
+      <mat-error>You must provide an ID</mat-error>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">Confirm Reservation</button>
+  </form>
+</div>

@@ -19,13 +19,23 @@ export class CarsService {
     return this.typesCache;
   }
 
-  public getAvailable(type: string, startDate: Date, endDate: Date): Observable<CarDto[]> {
+  public search(type: string, startDate: Date, endDate: Date): Observable<CarDto[]> {
     const params = {
       type,
       startDate: startDate?.toISOString(),
       endDate: endDate?.toISOString()
-    }
+    };
 
-    return this.http.get<CarDto[]>(`${this.controllerURL}/available`, { params })
+    return this.http.get<CarDto[]>(`${this.controllerURL}/search`, { params });
+  }
+
+  public isAvailable(carId: string, startDate: Date, endDate: Date, rentalId?: string): Observable<boolean> {
+    const params: { [key: string]: string } = {
+      startDate: startDate?.toISOString(),
+      endDate: endDate?.toISOString()
+    };
+    if (rentalId) params['rentalId'] = rentalId;
+
+    return this.http.get<boolean>(`${this.controllerURL}/${carId}/isAvailable`, { params });
   }
 }

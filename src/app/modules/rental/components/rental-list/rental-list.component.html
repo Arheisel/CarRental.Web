@@ -1,0 +1,13 @@
+<h2>My Reservations</h2>
+
+<mat-card *ngFor="let rental of rentals | async">
+  <mat-card-title>{{ rental.car.model }}</mat-card-title>
+  <mat-card-content>
+    <span>From: {{ rental.startDate | dateOnly }}</span><br>
+    <span>To: {{ rental.endDate | dateOnly }}</span><br>
+    <span>Status: {{ rental.status }}</span>
+  </mat-card-content>
+  <mat-card-footer>
+    
+  </mat-card-footer>
+</mat-card>

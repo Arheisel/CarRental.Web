@@ -1,0 +1,24 @@
+:host {
+  display: block;
+}
+
+.main {
+  min-height: 100vh;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+header {
+  flex: 0 0 50px;
+  width: 100vw;
+  border-bottom: 1px solid lightgrey;
+}
+
+.content {
+  flex: 1 0 auto;
+  width: 960px;
+  max-width: 100vw;
+  background-color: white;
+}

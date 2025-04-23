@@ -2,9 +2,6 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  template: '<app-loading-screen/><router-outlet/>'
 })
-export class AppComponent {
-
-}
+export class AppComponent { }

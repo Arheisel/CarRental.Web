@@ -1,5 +1,5 @@
 export interface UpdateRentalDto {
   carId: string;
-  startDate: string;
-  endDate: string;
+  startDate: Date | string;
+  endDate: Date | string;
 }

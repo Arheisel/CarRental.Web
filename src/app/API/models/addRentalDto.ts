@@ -3,6 +3,6 @@ export interface AddRentalDto {
   customerName: string;
   customerAddress: string;
   carId: string;
-  startDate: string;
-  endDate: string;
+  startDate: Date | string;
+  endDate: Date | string;
 }

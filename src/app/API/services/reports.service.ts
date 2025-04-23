@@ -18,7 +18,7 @@ export class ReportsService {
     const params = {
       startDate: startDate?.toISOString(),
       endDate: endDate?.toISOString()
-    }
+    };
 
     return this.http.get<CarServiceReportDto[]>(`${this.controllerURL}/cars/services`, { params });
   }
@@ -27,7 +27,7 @@ export class ReportsService {
     const params = {
       startDate: startDate?.toISOString(),
       endDate: endDate?.toISOString()
-    }
+    };
 
     return this.http.get<UtilizationByTypeReportDto[]>(`${this.controllerURL}/rentals/byCarType`, { params });
   }
